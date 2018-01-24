@@ -1,9 +1,12 @@
 #include <Wire.h>
 
+// --- Slave --- //
+
 const int buttonPin = 7; 
 const int ldrPin = A0;
 byte count = 0;
 int buttonState = 0;
+int lastButtonState = 0;
 int ldrValue = analogRead(ldrPin);
 
 
@@ -11,16 +14,20 @@ void setup() {
   Serial.begin(9600);
   pinMode(buttonPin, INPUT);
 
-  Wire.begin(2);                // join i2c bus with address #8
+  Wire.begin(2);                // join i2c bus with address #2
   Wire.onRequest(requestEvent); // register event
 }
 
 void loop() {
   buttonState = digitalRead(buttonPin);
-  if (buttonState == HIGH) {
-    count++;
+
+  if(buttonState != lastButtonState) {
+    if (buttonState == HIGH) {
+      count++;
+    }
+    delay(100); 
   }
-  delay(100);
+  lastButtonState = buttonState; 
 }
 
 void requestEvent() {
@@ -31,4 +38,5 @@ void requestEvent() {
   Wire.write(count);
   Wire.write(ldrValueByte);
 }
+
 

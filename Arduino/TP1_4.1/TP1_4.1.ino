@@ -6,8 +6,8 @@ void setup() {
 
 // the loop function runs over and over again forever
 void loop() {
-  //blinkLED();
-  blinkSOS();
+  blinkLED();
+  //blinkSOS();
 }
 
 void blinkLED() {
