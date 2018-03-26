@@ -29,7 +29,7 @@ void setup() {
 }
 
 void loop() { 
-  //Send data to server every 30 seconds
+  //Send data to server every 10 seconds
   if(countTime > 10) {
     sendData(DHT.temperature, DHT.humidity, sensorLDRValue);
     countTime = 0;
